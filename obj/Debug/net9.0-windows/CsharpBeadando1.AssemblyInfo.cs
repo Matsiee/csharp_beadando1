@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CsharpBeadando1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+796c918bdcd5e4530ce11dbc2db4eec6e124204e")]
 [assembly: System.Reflection.AssemblyProductAttribute("CsharpBeadando1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CsharpBeadando1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

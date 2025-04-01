@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "iE3w/TXc65I=",
+  "dgSpecHash": "bM3EfWYyORc=",
   "success": true,
-  "projectFilePath": "C:\\Users\\vmate\\RiderProjects\\CsharpBeadando1\\CsharpBeadando1\\CsharpBeadando1.csproj",
+  "projectFilePath": "C:\\Users\\vmate\\RiderProjects\\csharp_beadando\\CsharpBeadando1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\vmate\\.nuget\\packages\\entityframework\\6.4.4\\entityframework.6.4.4.nupkg.sha512",
     "C:\\Users\\vmate\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

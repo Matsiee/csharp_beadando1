@@ -1,11 +1,11 @@
 ﻿using System.Data.SQLite;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using CsharpBeadando1.Windows;
 
-namespace CsharpBeadando1;
+namespace CsharpBeadando1.UserControls;
 
-public partial class UserWindow : System.Windows.Controls.UserControl
+public partial class UserWindow : UserControl
 {
     public UserWindow(ContentControl contentControl, SQLiteConnection connection)
     {
@@ -38,5 +38,11 @@ public partial class UserWindow : System.Windows.Controls.UserControl
             var adminWindow = new AdminWindow(Connection, ContentHolder);
             ContentHolder.Content = adminWindow;
         }
+    }
+
+    private void SelectPatientsButtonClick(object sender, RoutedEventArgs e)
+    {
+        var window = new SelectPatient(Connection, ListBox);
+        window.Show();
     }
 }

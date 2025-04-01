@@ -10,16 +10,18 @@ public partial class NewNurse : Window
         InitializeComponent();
         Connection = connection;
     }
-
-    private SQLiteConnection Connection;
+    private SQLiteConnection Connection { get; }
 
     private void OnAddButtonClick(object sender, RoutedEventArgs e)
     {
         Connection.Open();
-        using (SQLiteCommand command = new SQLiteCommand(Connection))
+        string sql = "insert into apolok (nev, email, telefon, adoszam) values (@nev, @email, @telefon, @adoszam)";
+        using (SQLiteCommand command = new SQLiteCommand(sql, Connection))
         {
-            string sql = $"insert into apolok (nev) values ({Nev.Text})";
-            command.CommandText = sql;
+            command.Parameters.AddWithValue("@nev", Nev.Text);
+            command.Parameters.AddWithValue("@email", Email.Text);
+            command.Parameters.AddWithValue("@telefon", Telefon.Text);
+            command.Parameters.AddWithValue("@adoszam", Adoszam.Text);
             command.ExecuteNonQuery();
         }
     }

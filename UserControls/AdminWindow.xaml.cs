@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using CsharpBeadando1.Windows;
 
-namespace CsharpBeadando1;
+namespace CsharpBeadando1.UserControls;
 
 public partial class AdminWindow : UserControl
 {
@@ -29,7 +29,7 @@ public partial class AdminWindow : UserControl
         Connection.Close();
     }
 
-    private void OnCancelButtonClick(object sender, RoutedEventArgs e)
+    private void OnLogOutButtonClick(object sender, RoutedEventArgs e)
     {
         var userWindow = new UserWindow(ContentHolder, Connection);
         ContentHolder.Content = userWindow;
@@ -38,6 +38,18 @@ public partial class AdminWindow : UserControl
     private void OnAddNurseButtonClick(object sender, RoutedEventArgs e)
     {
         var window = new NewNurse(Connection);
+        window.Show();
+    }
+
+    private void OnAddPatientButtonClick(object sender, RoutedEventArgs e)
+    {
+        var window = new NewPatient(Connection);
+        window.Show();
+    }
+
+    private void OnFindPatientButtonClick(object sender, RoutedEventArgs e)
+    {
+        var window = new AdminSelectPatient(Connection, ListBox);
         window.Show();
     }
 }

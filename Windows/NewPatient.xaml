@@ -1,27 +1,28 @@
-﻿<Window x:Class="CsharpBeadando1.NewPatient"
+﻿<Window x:Class="CsharpBeadando1.Windows.NewPatient"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:CsharpBeadando1.Windows"
         mc:Ignorable="d"
-        Title="Paciens Felvetel" Height="300" Width="400">
+        Title="Paciens Felvetel" MaxHeight="250" MaxWidth="400" MinHeight="250" MinWidth="400">
     <Grid>
-        <StackPanel Margin="20">
+        <StackPanel Margin="20" VerticalAlignment="Center">
             <DockPanel HorizontalAlignment="Left">
                 <Label Content="Nev" Width="150" />
-                <TextBox Width="150" />
+                <TextBox Name="Nev" Width="150" />
             </DockPanel>
             <DockPanel HorizontalAlignment="Left">
                 <Label Content="Szobaszam" Width="150" />
-                <TextBox Width="150" />
+                <TextBox Name="Szobaszam" Width="150" />
             </DockPanel>
             <DockPanel HorizontalAlignment="Left">
                 <Label Content="Telefonszam" Width="150" />
-                <TextBox Width="150" />
+                <TextBox Name="Telefon" Width="150" />
             </DockPanel>
             <DockPanel HorizontalAlignment="Left">
                 <Label Content="Szuletesi datum" Width="150" />
-                <DatePicker Width="150"></DatePicker>
+                <DatePicker Name="Szuletesi_Datum" Width="150"></DatePicker>
             </DockPanel>
             <Button Click="OnAddButtonClick" Content="Add" Margin="10"></Button>
         </StackPanel>
