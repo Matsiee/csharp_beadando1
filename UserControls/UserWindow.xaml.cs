@@ -40,7 +40,7 @@ public partial class UserWindow : UserControl
         }
     }
 
-    private void SelectPatientsButtonClick(object sender, RoutedEventArgs e)
+    private void OnNewMeresClick(object sender, RoutedEventArgs e)
     {
         var window = new SelectPatient(Connection, ListBox);
         window.Show();

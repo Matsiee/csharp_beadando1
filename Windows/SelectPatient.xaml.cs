@@ -25,12 +25,10 @@ public partial class SelectPatient : Window
         command.Parameters.AddWithValue("@szobaszam", Szobaszam.Text);
         using (var reader = command.ExecuteReader())
         {
-            int n = 0;
             while (reader.Read())
             {
                 ListBox.Items.Add(reader.GetString(0));
                 ListBox.Items.Add(reader.GetString(1));
-                n++;
             }
         }
 

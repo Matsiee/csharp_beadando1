@@ -6,7 +6,6 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-
         <StackPanel>
             <DockPanel HorizontalAlignment="Stretch">
                 <StackPanel Margin="20">
@@ -15,7 +14,7 @@
                 </StackPanel>
                 <StackPanel Margin="20">
                     <Label Content="Tools" />
-                    <Button Click="SelectPatientsButtonClick" Content="Select Patient" Width="90" Margin="10" />
+                    <Button Click="OnNewMeresClick" Content="New Meres" Width="90" Margin="10" />
                     <Button Content="Add data" Width="90" Margin="10" />
                 </StackPanel>
                 <Button Click="OnLoginButtonClick" HorizontalAlignment="Right" Margin="20"

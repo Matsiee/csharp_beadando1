@@ -1,6 +1,7 @@
 ﻿using System.Data.SQLite;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace CsharpBeadando1.Windows;
 
@@ -21,17 +22,18 @@ public partial class AdminSelectPatient : Window
         Connection.Open();
         var command = Connection.CreateCommand();
         command.CommandText =
-            "select nev, pulzus, sys, dia from meresek join paciensek on meresek.paciens_id = paciensek.id where nev=@nev and szobaszam=@szobaszam and datum=@datum";
+            "select datum from paciensek join meresek on paciensek.id = meresek.paciens_id where nev=@nev and szobaszam=@szobaszam";
         command.Parameters.AddWithValue("@nev", Nev.Text);
         command.Parameters.AddWithValue("@szobaszam", Szobaszam.Text);
-        command.Parameters.AddWithValue("@datum", Datum.Text);
+        var item = "";
         using (var reader = command.ExecuteReader())
         {
             while (reader.Read())
             {
-                ListBox.Items.Add(reader.GetString(0));
-                ListBox.Items.Add(reader.GetString(1));
+                item = reader.GetString(0) + ", " + reader.GetString(1);
             }
+
+            ListBox.Items.Add(item);
         }
 
         Connection.Close();
