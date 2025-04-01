@@ -1,0 +1,19 @@
+﻿<Window x:Class="CsharpBeadando1.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Login as Admin" Height="200" Width="300">
+    <Grid>
+        <StackPanel Margin="20">
+            <Label Content="Enter Admin password"></Label>
+            <TextBox x:Name="TextBox" MaxLength="16"></TextBox>
+            <DockPanel>
+                            <Button Click="OnLoginButtonClick" Content="Ok" Margin="20" Width="70" />
+                            <Button Click="OnCancelButtonClick" Content="Cancel" Margin="20" Width="70"></Button>
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+
+</Window>
