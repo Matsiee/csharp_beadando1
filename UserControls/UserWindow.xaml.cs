@@ -16,19 +16,7 @@ public partial class UserWindow : UserControl
 
     private SQLiteConnection Connection { get; }
     private ContentControl ContentHolder { get; }
-
-    private void AccessDatabase()
-    {
-        Connection.Open();
-        var command = Connection.CreateCommand();
-        command.CommandText = "select nev from paciensek";
-        using (var reader = command.ExecuteReader())
-        {
-            while (reader.Read()) Console.WriteLine(reader.GetString(0));
-        }
-
-        Connection.Close();
-    }
+    public bool isNewMeresOpen;
 
     private void OnLoginButtonClick(object sender, RoutedEventArgs e)
     {
@@ -42,7 +30,9 @@ public partial class UserWindow : UserControl
 
     private void OnNewMeresClick(object sender, RoutedEventArgs e)
     {
-        var window = new SelectPatient(Connection, ListBox);
+        if (isNewMeresOpen) return;
+        var window = new NewMeres(Connection, this);
         window.Show();
+        isNewMeresOpen = true;
     }
 }

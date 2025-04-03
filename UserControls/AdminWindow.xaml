@@ -10,7 +10,7 @@
             <DockPanel HorizontalAlignment="Stretch">
                 <StackPanel Margin="20">
                     <Label Content="Select " />
-                    <ListBox Name="ListBox" Width="300" MinHeight="300" MaxHeight="300" />
+                    <DataGrid Name="DataGrid" MinHeight="300" MaxWidth="300" MinWidth="300"></DataGrid>
                 </StackPanel>
                 <StackPanel Margin="20">
                     <Label Content="Tools" />

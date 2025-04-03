@@ -131,7 +131,6 @@ C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\DialogBox
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\UserControls\AdminWindow.baml
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\UserControls\UserWindow.baml
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\Windows\NewNurse.baml
-C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\Windows\SelectPatient.baml
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\DialogBoxes\Login.g.cs
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\Main.g.cs
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\UserControls\AdminWindow.g.cs
@@ -139,7 +138,6 @@ C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\UserContr
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\Windows\AdminSelectPatient.g.cs
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\Windows\NewNurse.g.cs
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\Windows\NewPatient.g.cs
-C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\Windows\SelectPatient.g.cs
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\App.g.cs
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\CsharpBeadando1_MarkupCompile.cache
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\CsharpBeadando1_MarkupCompile.lref
@@ -158,3 +156,5 @@ C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\refint\Cs
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\CsharpBeadando1.pdb
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\CsharpBeadando1.genruntimeconfig.cache
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\ref\CsharpBeadando1.dll
+C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\Windows\NewMeres.baml
+C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\Windows\NewMeres.g.cs

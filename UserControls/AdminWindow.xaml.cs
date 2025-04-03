@@ -15,19 +15,7 @@ public partial class AdminWindow : UserControl
     }
 
     private SQLiteConnection Connection { get; }
-    private ContentControl ContentHolder { get; set; }
-
-    private void AccessDatabase()
-    {
-        Connection.Open();
-        var command = Connection.CreateCommand();
-        command.CommandText = "select nev from paciensek";
-        using (var reader = command.ExecuteReader())
-        {
-            while (reader.Read()) Console.WriteLine(reader.GetString(0));
-        }
-        Connection.Close();
-    }
+    private ContentControl ContentHolder { get; }
 
     private void OnLogOutButtonClick(object sender, RoutedEventArgs e)
     {
@@ -49,7 +37,7 @@ public partial class AdminWindow : UserControl
 
     private void OnFindPatientButtonClick(object sender, RoutedEventArgs e)
     {
-        var window = new AdminSelectPatient(Connection, ListBox);
+        var window = new AdminSelectPatient(Connection, DataGrid);
         window.Show();
     }
 }

@@ -1,0 +1,45 @@
+﻿<Window x:Class="CsharpBeadando1.Windows.NewMeres"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        Title="Uj meres" MaxHeight="300" MaxWidth="400" MinHeight="300" MinWidth="400"
+        Closing="OnApplicationClosing">
+    <Grid>
+        <StackPanel Margin="20" VerticalAlignment="Center">
+            <DockPanel HorizontalAlignment="Left">
+                <Label Content="Nev" Width="150" />
+                <TextBox Name="Nev" Width="150" />
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Left">
+                <Label Content="Szobaszam" Width="150" />
+                <TextBox Name="Szobaszam" Width="150" />
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Left">
+                <Label Content="Datum" Width="150" />
+                <TextBox Name="Datum" Width="150" />
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Left">
+                <Label Content="Pulzus" Width="150" />
+                <TextBox Name="Pulzus" Width="150" />
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Left">
+                <Label Content="Sys" Width="150" />
+                <TextBox Name="Sys" Width="150" />
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Left">
+                <Label Content="Dia" Width="150" />
+                <TextBox Name="Dia" Width="150" />
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Left">
+                <Label Content="Megjegyzes" Width="150" />
+                <TextBox Name="Megjegyzes" Width="150" />
+            </DockPanel>
+            <DockPanel HorizontalAlignment="Center">
+                <Button Click="OnSelectButtonClick" Content="Add" Margin="10" Width="70" />
+                <Button Click="OnCancelButtonClick" Content="Cancel" Margin="10" Width="70" />
+            </DockPanel>
+        </StackPanel>
+    </Grid>
+</Window>

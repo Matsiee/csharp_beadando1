@@ -7,11 +7,11 @@
         Title="Login as Admin" Height="200" Width="300">
     <Grid>
         <StackPanel Margin="20">
-            <Label Content="Enter Admin password"></Label>
-            <TextBox x:Name="TextBox" MaxLength="16"></TextBox>
+            <Label Content="Enter Admin password" />
+            <PasswordBox x:Name="TextBox" MaxLength="16" />
             <DockPanel>
-                            <Button Click="OnLoginButtonClick" Content="Ok" Margin="20" Width="70" />
-                            <Button Click="OnCancelButtonClick" Content="Cancel" Margin="20" Width="70"></Button>
+                <Button Click="OnLoginButtonClick" Content="Ok" Margin="20" Width="70" />
+                <Button Click="OnCancelButtonClick" Content="Cancel" Margin="20" Width="70" />
             </DockPanel>
         </StackPanel>
     </Grid>

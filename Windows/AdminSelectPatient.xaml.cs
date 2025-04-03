@@ -1,4 +1,5 @@
-﻿using System.Data.SQLite;
+﻿using System.Data;
+using System.Data.SQLite;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -7,35 +8,30 @@ namespace CsharpBeadando1.Windows;
 
 public partial class AdminSelectPatient : Window
 {
-    public AdminSelectPatient(SQLiteConnection connection, ListBox listBox)
+    public AdminSelectPatient(SQLiteConnection connection, DataGrid dataGrid)
     {
         InitializeComponent();
         Connection = connection;
-        ListBox = listBox;
+        DataGrid = dataGrid;
     }
 
     private SQLiteConnection Connection { get; }
-    private ListBox ListBox { get; }
+    private DataGrid DataGrid { get; }
 
     private void OnSelectButtonClick(object sender, RoutedEventArgs e)
     {
         Connection.Open();
         var command = Connection.CreateCommand();
         command.CommandText =
-            "select datum from paciensek join meresek on paciensek.id = meresek.paciens_id where nev=@nev and szobaszam=@szobaszam";
+            "select datum, pulzus, sys, dia, megjegyzes from paciensek join meresek on paciensek.id = meresek.paciens_id where nev=@nev and szobaszam=@szobaszam order by datum desc";
         command.Parameters.AddWithValue("@nev", Nev.Text);
         command.Parameters.AddWithValue("@szobaszam", Szobaszam.Text);
-        var item = "";
-        using (var reader = command.ExecuteReader())
+        using (var adapter = new SQLiteDataAdapter(command))
         {
-            while (reader.Read())
-            {
-                item = reader.GetString(0) + ", " + reader.GetString(1);
-            }
-
-            ListBox.Items.Add(item);
+            DataTable dataTable = new DataTable();
+            adapter.Fill(dataTable);
+            DataGrid.ItemsSource = dataTable.DefaultView;
         }
-
         Connection.Close();
         Close();
     }

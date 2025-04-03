@@ -1,7 +1,4 @@
-﻿using System.Data.SQLite;
-using System.Windows;
-using System.Windows.Controls;
-using Path = System.IO.Path;
+﻿using System.Windows;
 
 namespace CsharpBeadando1;
 
@@ -17,17 +14,18 @@ public partial class Login : Window
 
     private void OnLoginButtonClick(object sender, RoutedEventArgs e)
     {
-        string pass = "pass";
-        if (TextBox.Text == pass)
+        var pass = "pass";
+        if (TextBox.Password == pass)
         {
             DialogResult = true;
+            Close();
         }
         else
         {
             DialogResult = false;
             MessageBox.Show("Incorrect password");
         }
-        Close();
+
     }
 
     private void OnCancelButtonClick(object sender, RoutedEventArgs e)
