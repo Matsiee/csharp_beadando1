@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Data.SQLite;
 using System.Windows;
-using System.Windows.Controls;
 using CsharpBeadando1.UserControls;
 
 namespace CsharpBeadando1.Windows;

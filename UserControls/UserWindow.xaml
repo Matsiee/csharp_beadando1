@@ -9,18 +9,13 @@
         <StackPanel>
             <DockPanel HorizontalAlignment="Stretch">
                 <StackPanel Margin="20">
-                    <Label Content="Data" />
-                    <ListBox Name="ListBox" Width="300" MinHeight="300" MaxHeight="300" />
-                </StackPanel>
-                <StackPanel Margin="20">
                     <Label Content="Tools" />
                     <Button Click="OnNewMeresClick" Content="New Meres" Width="90" Margin="10" />
-                    <Button Content="Add data" Width="90" Margin="10" />
                 </StackPanel>
                 <Button Click="OnLoginButtonClick" HorizontalAlignment="Right" Margin="20"
                         Content="Log in as admin" Height="30" VerticalAlignment="Top" />
             </DockPanel>
-            <Label Margin="20 00 0 0" Content="Logged in as Guest" />
+            <Label Margin="20 0 0 0" Content="Logged in as Guest" />
         </StackPanel>
     </Grid>
 </UserControl>
