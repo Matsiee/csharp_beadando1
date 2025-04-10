@@ -3,37 +3,44 @@ using System.Data.SQLite;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using CsharpBeadando1.UserControls;
 
 namespace CsharpBeadando1.Windows;
 
 public partial class AdminSelectPatient : Window
 {
-    public AdminSelectPatient(SQLiteConnection connection, DataGrid dataGrid)
+    public AdminSelectPatient(SQLiteConnection connection, AdminWindow adminWindow)
     {
         InitializeComponent();
         Connection = connection;
-        DataGrid = dataGrid;
+        AdminWindow = adminWindow;
+        DataGrid = adminWindow.DataGrid;
     }
 
     private SQLiteConnection Connection { get; }
+    private AdminWindow AdminWindow { get; }
     private DataGrid DataGrid { get; }
 
     private void OnSelectButtonClick(object sender, RoutedEventArgs e)
     {
         Connection.Open();
+        string paciensId;
         var command = Connection.CreateCommand();
-        command.CommandText =
-            "select datum, pulzus, sys, dia, megjegyzes from paciensek join meresek on paciensek.id = meresek.paciens_id where nev=@nev and szobaszam=@szobaszam order by datum desc";
+        command.CommandText = "select id from paciensek where nev = @nev and szobaszam = @szobaszam";
         command.Parameters.AddWithValue("@nev", Nev.Text);
         command.Parameters.AddWithValue("@szobaszam", Szobaszam.Text);
-        using (var adapter = new SQLiteDataAdapter(command))
+        using (var reader = command.ExecuteReader())
         {
-            DataTable dataTable = new DataTable();
-            adapter.Fill(dataTable);
-            DataGrid.ItemsSource = dataTable.DefaultView;
+            paciensId = reader.GetString(0);
         }
+
+        AdminWindow.DisplayMeresek(AdminWindow.MeresekDataTable, paciensId);
         Connection.Close();
         Close();
+        //default values
+        AdminWindow.RemoveMeres.IsEnabled = true;
+        AdminWindow.RemovePatient.IsEnabled = false;
+        AdminWindow.FilterComboBox.IsEnabled = true;
     }
 
     private void OnCancelButtonClick(object sender, RoutedEventArgs e)

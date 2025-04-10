@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Data;
 using System.Data.SQLite;
 using System.Windows;
 using CsharpBeadando1.UserControls;
@@ -39,18 +40,20 @@ public partial class NewMeres : Window
         }
 
         var sqlInsert =
-            "insert into meresek (paciens_id, datum, pulzus, sys, dia, megjegyzes) values (@paciens_id, @datum, @pulzus, @sys, @dia, @megjegyzes)";
+            "insert into meresek (paciens_id, datum, idopont, pulzus, sys, dia, megjegyzes) values (@paciens_id, @datum, @idopont, @pulzus, @sys, @dia, @megjegyzes)";
         using (var insertCommand = new SQLiteCommand(sqlInsert, Connection))
         {
             insertCommand.Parameters.AddWithValue("@paciens_id", paciensId);
-            insertCommand.Parameters.AddWithValue("@datum", Datum.Text);
+            var datumInput = Datum.Text.Split(' ');
+            insertCommand.Parameters.AddWithValue("@datum", datumInput[0]);
+            insertCommand.Parameters.AddWithValue("@idopont", datumInput[1]);
             insertCommand.Parameters.AddWithValue("@pulzus", Pulzus.Text);
             insertCommand.Parameters.AddWithValue("@sys", Sys.Text);
             insertCommand.Parameters.AddWithValue("@dia", Dia.Text);
             insertCommand.Parameters.AddWithValue("@megjegyzes", Megjegyzes.Text);
             insertCommand.ExecuteNonQuery();
         }
-
+        UserWindow.DisplayPatients(UserWindow.PatientsDataTable);
         Connection.Close();
         Close();
     }
@@ -62,6 +65,6 @@ public partial class NewMeres : Window
 
     private void OnApplicationClosing(object? sender, CancelEventArgs e)
     {
-        UserWindow.isNewMeresOpen = false;
+        UserWindow.IsNewMeresOpen = false;
     }
 }

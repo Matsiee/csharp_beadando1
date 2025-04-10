@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET9_0;NETCOREAPP
 C:\Users\vmate\RiderProjects\csharp_beadando1\App.xaml
-8-616271996
+9-926725664
 
-11-81567489
+121336222679
 2051768056738
-DialogBoxes\Login.xaml;Main.xaml;UserControls\AdminWindow.xaml;UserControls\UserWindow.xaml;Windows\AdminSelectPatient.xaml;Windows\NewMeres.xaml;Windows\NewNurse.xaml;Windows\NewPatient.xaml;
+DialogBoxes\Login.xaml;Main.xaml;UserControls\AdminWindow.xaml;UserControls\UserWindow.xaml;Windows\AdminSelectPatient.xaml;Windows\NewMeres.xaml;Windows\NewNurse.xaml;Windows\NewPatient.xaml;Windows\UserSelectPatient.xaml;
 
 False
 

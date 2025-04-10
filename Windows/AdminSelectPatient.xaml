@@ -15,9 +15,6 @@
                 <Label Content="Szobaszam" Width="150" />
                 <TextBox Name="Szobaszam" Width="150" />
             </DockPanel>
-            <DockPanel HorizontalAlignment="Left">
-                <Label Content="Datum" Width="150" />
-            </DockPanel>
             <DockPanel HorizontalAlignment="Center">
                 <Button Click="OnSelectButtonClick" Content="Select" Margin="10" Width="70" />
                 <Button Click="OnCancelButtonClick" Content="Cancel" Margin="10" Width="70" />

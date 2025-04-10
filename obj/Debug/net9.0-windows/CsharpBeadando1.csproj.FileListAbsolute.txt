@@ -158,3 +158,5 @@ C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\CsharpBea
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\ref\CsharpBeadando1.dll
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\Windows\NewMeres.baml
 C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\Windows\NewMeres.g.cs
+C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\Windows\UserSelectPatient.g.cs
+C:\Users\vmate\RiderProjects\csharp_beadando1\obj\Debug\net9.0-windows\Windows\UserSelectPatient.baml

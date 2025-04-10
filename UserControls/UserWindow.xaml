@@ -9,8 +9,27 @@
         <StackPanel>
             <DockPanel HorizontalAlignment="Stretch">
                 <StackPanel Margin="20">
-                    <Label Content="Tools" />
+                    <Label Content="Select " />
+                    <DataGrid Name="DataGrid" MinHeight="300" MaxHeight="300" MaxWidth="300" MinWidth="300" IsReadOnly="True" />
+                </StackPanel>
+                <StackPanel Margin="20">
+                    <Label Content="Append Data" />
                     <Button Click="OnNewMeresClick" Content="New Meres" Width="90" Margin="10" />
+                    <Label Content="Filter Data" />
+                    <ComboBox Name="FilterComboBox" SelectionChanged="OnFilterComboBoxSelectionChanged" Width="150"
+                              Margin="10">
+                        <ComboBoxItem Content="Összes" />
+                        <ComboBoxItem Content="Ma mérték" />
+                        <ComboBoxItem Content="Ma még nem mérték" />
+                    </ComboBox>
+                    <Label Content="Select Data" />
+                    <DockPanel>
+                        <Button Click="OnViewPatientsClick" Content="View Patients" Width="90" Margin="10" />
+                        <Button Click="OnSelectPatientClick" Content="Find Patient" Width="90" Margin="10" />
+                    </DockPanel>
+                    <Label Content="Edit Data" />
+                    <Button Name="RemoveMeres" Click="OnRemoveMeresClick" Content="Remove Meres" Width="90"
+                            Margin="10" IsEnabled="False" />
                 </StackPanel>
                 <Button Click="OnLoginButtonClick" HorizontalAlignment="Right" Margin="20"
                         Content="Log in as admin" Height="30" VerticalAlignment="Top" />
