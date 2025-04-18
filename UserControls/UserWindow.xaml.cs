@@ -8,8 +8,6 @@ namespace CsharpBeadando1.UserControls;
 
 public partial class UserWindow : UserControl
 {
-    public bool IsNewMeresOpen;
-
     public UserWindow(ContentControl contentControl, SQLiteConnection connection)
     {
         InitializeComponent();
@@ -37,10 +35,45 @@ public partial class UserWindow : UserControl
 
     private void OnNewMeresClick(object sender, RoutedEventArgs e)
     {
-        if (IsNewMeresOpen) return;
-        var window = new NewMeres(Connection, this);
-        window.Show();
-        IsNewMeresOpen = true;
+        var window = new NewMeres();
+        if (window.ShowDialog() == true)
+        {
+            Connection.Open();
+            object? paciensId = null;
+            var selectCommand = Connection.CreateCommand();
+            selectCommand.CommandText =
+                "select id from paciensek where nev=@nev and szobaszam=@szobaszam";
+            selectCommand.Parameters.AddWithValue("@nev", window.Nev.Text);
+            selectCommand.Parameters.AddWithValue("@szobaszam", window.Szobaszam.Text);
+            using (var reader = selectCommand.ExecuteReader())
+            {
+                while (reader.Read()) paciensId = reader.GetValue(0);
+            }
+
+            if (paciensId == null)
+            {
+                MessageBox.Show("Could not find patient.");
+                return;
+            }
+
+            var sqlInsert =
+                "insert into meresek (paciens_id, datum, idopont, pulzus, sys, dia, megjegyzes) values (@paciens_id, @datum, @idopont, @pulzus, @sys, @dia, @megjegyzes)";
+            using (var insertCommand = new SQLiteCommand(sqlInsert, Connection))
+            {
+                insertCommand.Parameters.AddWithValue("@paciens_id", paciensId);
+                var datumInput = window.Datum.Text.Split(' ');
+                insertCommand.Parameters.AddWithValue("@datum", datumInput[0]);
+                insertCommand.Parameters.AddWithValue("@idopont", datumInput[1]);
+                insertCommand.Parameters.AddWithValue("@pulzus", window.Pulzus.Text);
+                insertCommand.Parameters.AddWithValue("@sys", window.Sys.Text);
+                insertCommand.Parameters.AddWithValue("@dia", window.Dia.Text);
+                insertCommand.Parameters.AddWithValue("@megjegyzes", window.Megjegyzes.Text);
+                insertCommand.ExecuteNonQuery();
+            }
+
+            DisplayPatients(PatientsDataTable);
+            Connection.Close();
+        }
     }
 
     public void DisplayPatients(DataTable dataTable)

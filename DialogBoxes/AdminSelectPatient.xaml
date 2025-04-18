@@ -16,8 +16,8 @@
                 <TextBox Name="Szobaszam" Width="150" />
             </DockPanel>
             <DockPanel HorizontalAlignment="Center">
-                <Button Click="OnSelectButtonClick" Content="Select" Margin="10" Width="70" />
-                <Button Click="OnCancelButtonClick" Content="Cancel" Margin="10" Width="70" />
+                <Button Click="OnSelectButtonClick" Content="Select" Margin="10" Width="90" />
+                <Button Click="OnCancelButtonClick" Content="Cancel" Margin="10" Width="90" />
             </DockPanel>
         </StackPanel>
     </Grid>

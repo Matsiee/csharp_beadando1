@@ -1,17 +1,17 @@
-﻿using System.ComponentModel;
-using System.Data;
+﻿using System.Data;
 using System.Data.SQLite;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
 using CsharpBeadando1.UserControls;
 
 namespace CsharpBeadando1.Windows;
 
-public partial class NewMeres : Window
+public partial class AdminSelectPatient : Window
 {
-    public NewMeres()
+    public AdminSelectPatient()
     {
         InitializeComponent();
-        Datum.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
     }
 
     private void OnSelectButtonClick(object sender, RoutedEventArgs e)

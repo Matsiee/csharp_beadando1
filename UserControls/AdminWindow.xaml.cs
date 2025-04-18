@@ -19,6 +19,7 @@ public partial class AdminWindow : UserControl
     private ContentControl ContentHolder { get; }
     public DataTable MeresekDataTable { get; } = new();
     public DataTable PatientsDataTable { get; } = new();
+    public DataTable NursesDataTable { get; } = new();
 
     private void OnLogOutButtonClick(object sender, RoutedEventArgs e)
     {
@@ -28,20 +29,69 @@ public partial class AdminWindow : UserControl
 
     private void OnAddNurseButtonClick(object sender, RoutedEventArgs e)
     {
-        var window = new NewNurse(Connection);
-        window.Show();
+        var window = new NewNurse();
+        if (window.ShowDialog() == true)
+        {
+            Connection.Open();
+            var sql = "insert into apolok (nev, email, telefon, adoszam) values (@nev, @email, @telefon, @adoszam)";
+            using (var command = new SQLiteCommand(sql, Connection))
+            {
+                command.Parameters.AddWithValue("@nev", window.Nev.Text);
+                command.Parameters.AddWithValue("@email", window.Email.Text);
+                command.Parameters.AddWithValue("@telefon", window.Telefon.Text);
+                command.Parameters.AddWithValue("@adoszam", window.Adoszam.Text);
+                command.ExecuteNonQuery();
+            }
+
+            Connection.Close();
+        }
     }
 
     private void OnAddPatientButtonClick(object sender, RoutedEventArgs e)
     {
-        var window = new NewPatient(Connection);
-        window.Show();
+        var window = new NewPatient();
+        if (window.ShowDialog() == true)
+        {
+            var szuletesiDatum = window.Szuletesi_Datum.SelectedDate.Value.ToString("yyyy-MM-dd");
+            Connection.Open();
+            var sql =
+                "insert into paciensek (nev, szobaszam, telefon, szuletesi_datum) values (@nev, @szobaszam, @telefon, @szuletesi_datum)";
+            using (var command = new SQLiteCommand(sql, Connection))
+            {
+                command.Parameters.AddWithValue("@nev", window.Nev.Text);
+                command.Parameters.AddWithValue("@szobaszam", window.Szobaszam.Text);
+                command.Parameters.AddWithValue("@telefon", window.Telefon.Text);
+                command.Parameters.AddWithValue("@szuletesi_datum", szuletesiDatum);
+                command.ExecuteNonQuery();
+            }
+
+            Connection.Close();
+        }
     }
 
     private void OnFindPatientButtonClick(object sender, RoutedEventArgs e)
     {
-        var window = new AdminSelectPatient(Connection, this);
-        window.Show();
+        var window = new AdminSelectPatient();
+        if (window.ShowDialog() == true)
+        {
+            Connection.Open();
+            string paciensId;
+            var command = Connection.CreateCommand();
+            command.CommandText = "select id from paciensek where nev = @nev and szobaszam = @szobaszam";
+            command.Parameters.AddWithValue("@nev", window.Nev.Text);
+            command.Parameters.AddWithValue("@szobaszam", window.Szobaszam.Text);
+            using (var reader = command.ExecuteReader())
+            {
+                paciensId = reader.GetString(0);
+            }
+
+            DisplayMeresek(MeresekDataTable, paciensId);
+            Connection.Close();
+            //default values
+            RemoveMeres.IsEnabled = true;
+            RemovePatient.IsEnabled = false;
+            FilterComboBox.IsEnabled = true;
+        }
     }
 
     private void OnRemoveMeresClick(object sender, RoutedEventArgs e)
@@ -119,6 +169,20 @@ public partial class AdminWindow : UserControl
         }
     }
 
+    public void DisplayNurses(DataTable dataTable)
+    {
+        var selectCommand = Connection.CreateCommand();
+        selectCommand.CommandText =
+            "select nev, email, telefon, adoszam, id from apolok";
+        using (var adapter = new SQLiteDataAdapter(selectCommand))
+        {
+            dataTable.Clear();
+            adapter.Fill(dataTable);
+            DataGrid.ItemsSource = dataTable.DefaultView;
+            DataGrid.Columns[4].Visibility = Visibility.Hidden;
+        }
+    }
+
     private void OnFilterComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var item = FilterComboBox.SelectedItem as ComboBoxItem;
@@ -135,5 +199,16 @@ public partial class AdminWindow : UserControl
                 MeresekDataTable.DefaultView.RowFilter = string.Empty;
                 break;
         }
+    }
+
+    private void OnViewNursesClick(object sender, RoutedEventArgs e)
+    {
+        RemoveMeres.IsEnabled = false;
+        RemovePatient.IsEnabled = false;
+        FilterComboBox.IsEnabled = false;
+
+        Connection.Open();
+        DisplayNurses(NursesDataTable);
+        Connection.Close();
     }
 }

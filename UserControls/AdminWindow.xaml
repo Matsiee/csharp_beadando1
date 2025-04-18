@@ -16,7 +16,7 @@
                     <Label Content="List Data" />
                     <DockPanel>
                         <Button Click="OnViewPatientsClick" Content="View Patients" Width="90" Margin="10" />
-                        <Button Content="View Nurses" Width="90" Margin="10" />
+                        <Button Click=" OnViewNursesClick" Content="View Nurses" Width="90" Margin="10" />
                     </DockPanel>
                     <Label Content="Append Data" />
                     <DockPanel>
@@ -26,7 +26,6 @@
                     <Label Content="Select Data" />
                     <DockPanel>
                         <Button Click="OnFindPatientButtonClick" Content="Find Patient" Width="90" Margin="10" />
-                        <Button Content="FInd Nurse" Width="90" Margin="10" />
                     </DockPanel>
                     <Label Content="Other" />
                     <StackPanel>
