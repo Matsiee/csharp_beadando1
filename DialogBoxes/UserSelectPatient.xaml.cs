@@ -3,9 +3,9 @@ using System.Windows;
 
 namespace CsharpBeadando1;
 
-public partial class AdminSelectPatient : Window
+public partial class UserSelectPatient : Window
 {
-    public AdminSelectPatient(SQLiteConnection connection)
+    public UserSelectPatient(SQLiteConnection connection)
     {
         Connection = connection;
         InitializeComponent();
@@ -35,12 +35,10 @@ public partial class AdminSelectPatient : Window
         Connection.Close();
 
         DialogResult = true;
-        Close();
     }
 
     private void OnCancelButtonClick(object sender, RoutedEventArgs e)
     {
-        DialogResult = false;
         Close();
     }
 }

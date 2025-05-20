@@ -9,30 +9,30 @@
         <StackPanel>
             <DockPanel HorizontalAlignment="Stretch">
                 <StackPanel Margin="20">
-                    <Label Content="Select " />
-                    <DataGrid Name="DataGrid" MinHeight="300" MaxHeight="300" MaxWidth="300" MinWidth="300" IsReadOnly="True" />
+                    <DataGrid MouseDoubleClick="OnDataGridRowDoubleMouseClick" Name="DataGrid" MinHeight="300"
+                              MaxHeight="300" MaxWidth="300" MinWidth="300" IsReadOnly="True" />
                 </StackPanel>
                 <StackPanel Margin="20">
-                    <Label Content="List Data" />
+                    <Label Content="Listázás" />
                     <DockPanel>
-                        <Button Click="OnViewPatientsClick" Content="View Patients" Width="90" Margin="10" />
-                        <Button Click=" OnViewNursesClick" Content="View Nurses" Width="90" Margin="10" />
+                        <Button Click="OnViewPatientsClick" Content="Páciensek" Width="90" Margin="10" />
+                        <Button Click=" OnViewNursesClick" Content="Ápolók" Width="90" Margin="10" />
                     </DockPanel>
-                    <Label Content="Append Data" />
+                    <Label Content="Hozzáadás" />
                     <DockPanel>
-                        <Button Click="OnAddPatientButtonClick" Content="Add Patient" Width="90" Margin="10" />
-                        <Button Click="OnAddNurseButtonClick" Content="Add Nurse" Width="90" Margin="10" />
+                        <Button Click="OnAddPatientButtonClick" Content="Páciens hozzáad" Width="90" Margin="10" />
+                        <Button Click="OnAddNurseButtonClick" Content="Ápoló hozzáad" Width="90" Margin="10" />
                     </DockPanel>
-                    <Label Content="Select Data" />
+                    <Label Content="Keresés" />
                     <DockPanel>
-                        <Button Click="OnFindPatientButtonClick" Content="Find Patient" Width="90" Margin="10" />
+                        <Button Click="OnFindPatientButtonClick" Content="Páciens keresés" Width="90" Margin="10" />
                     </DockPanel>
-                    <Label Content="Other" />
+                    <Label Content="Egyéb" />
                     <StackPanel>
                         <DockPanel>
-                            <Button Name="RemoveMeres" Click="OnRemoveMeresClick" Content="Remove Meres" Width="90"
+                            <Button Name="RemoveMeres" Click="OnRemoveMeresClick" Content="Mérés törlés" Width="90"
                                     Margin="10" IsEnabled="False" />
-                            <Button Name="RemovePatient" Click="OnRemovePatientClick" Content="Remove Patient"
+                            <Button Name="RemovePatient" Click="OnRemovePatientClick" Content="Páciens törlés"
                                     Width="90"
                                     Margin="10" IsEnabled="False" />
                         </DockPanel>
@@ -43,13 +43,19 @@
                                 <ComboBoxItem Content="Reggeli mérések" />
                                 <ComboBoxItem Content="Esti mérések" />
                             </ComboBox>
+                            <Button Name="RemoveNurse" Click="OnRemoveNurseClick" Content="Ápoló törlés"
+                                    Width="90"
+                                    Margin="10" IsEnabled="False" />
                         </DockPanel>
+                        <Button Name="Export" Click="OnExportClick" Content="Exportálás"
+                                                            Width="90"
+                                                            Margin="10" IsEnabled="False" />
                     </StackPanel>
                 </StackPanel>
                 <Button Click="OnLogOutButtonClick" HorizontalAlignment="Right" Margin="20"
-                        Content="Log out" Height="30" VerticalAlignment="Top" />
+                        Content="Kijelentkezés" Height="30" VerticalAlignment="Top" />
             </DockPanel>
-            <Label Margin="20 00 0 0" Content="Logged in as Admin" />
+            <Label Margin="20 00 0 0" Content="Admin felhasználó" />
         </StackPanel>
     </Grid>
 </UserControl>

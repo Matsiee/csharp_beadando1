@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace CsharpBeadando1.Windows;
+namespace CsharpBeadando1;
 
 public partial class NewNurse : Window
 {
@@ -11,6 +11,12 @@ public partial class NewNurse : Window
 
     private void OnAddButtonClick(object sender, RoutedEventArgs e)
     {
+        if ((Telefon.Text.Length != 12 && Telefon.Text[0] == '+') || Telefon.Text.Length != 11)
+        {
+            MessageBox.Show("Invalid Telefon");
+            return;
+        }
+
         DialogResult = true;
         Close();
     }

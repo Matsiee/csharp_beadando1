@@ -4,14 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Login as Admin" Height="200" Width="300">
+        Title="Bejelentkezés" Height="200" Width="300">
     <Grid>
         <StackPanel Margin="20">
-            <Label Content="Enter Admin password" />
+            <Label Content="Admin bejelentkezés" />
             <PasswordBox x:Name="TextBox" MaxLength="16" />
             <DockPanel>
                 <Button Click="OnLoginButtonClick" Content="Ok" Margin="20" Width="70" />
-                <Button Click="OnCancelButtonClick" Content="Cancel" Margin="20" Width="70" />
+                <Button Click="OnCancelButtonClick" Content="Mégse" Margin="20" Width="70" />
             </DockPanel>
         </StackPanel>
     </Grid>

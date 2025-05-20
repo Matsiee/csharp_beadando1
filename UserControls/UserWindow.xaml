@@ -9,32 +9,36 @@
         <StackPanel>
             <DockPanel HorizontalAlignment="Stretch">
                 <StackPanel Margin="20">
-                    <Label Content="Select " />
-                    <DataGrid Name="DataGrid" MinHeight="300" MaxHeight="300" MaxWidth="300" MinWidth="300" IsReadOnly="True" />
+                    <DataGrid MouseDoubleClick="OnDataGridRowDoubleMouseClick" Name="DataGrid" MinHeight="300"
+                              MaxHeight="300" MaxWidth="300" MinWidth="300" IsReadOnly="True" />
                 </StackPanel>
                 <StackPanel Margin="20">
-                    <Label Content="Append Data" />
-                    <Button Click="OnNewMeresClick" Content="New Meres" Width="90" Margin="10" />
-                    <Label Content="Filter Data" />
+                    <Label Content="Adat hozzáadása" />
+                    <Button Click="OnNewMeresClick" Content="Új mérés" Width="90" Margin="10" />
+                    <Label Content="Szűrés" />
                     <ComboBox Name="FilterComboBox" SelectionChanged="OnFilterComboBoxSelectionChanged" Width="150"
                               Margin="10">
                         <ComboBoxItem Content="Összes" />
                         <ComboBoxItem Content="Ma mérték" />
                         <ComboBoxItem Content="Ma még nem mérték" />
                     </ComboBox>
-                    <Label Content="Select Data" />
+                    <Label Content="Keresés" />
                     <DockPanel>
-                        <Button Click="OnViewPatientsClick" Content="View Patients" Width="90" Margin="10" />
-                        <Button Click="OnSelectPatientClick" Content="Find Patient" Width="90" Margin="10" />
+                        <Button Click="OnViewPatientsClick" Content="Páciensek" Width="90" Margin="10" />
+                        <Button Click="OnSelectPatientClick" Content="Páciens keresés" Width="90" Margin="10" />
                     </DockPanel>
-                    <Label Content="Edit Data" />
-                    <Button Name="RemoveMeres" Click="OnRemoveMeresClick" Content="Remove Meres" Width="90"
-                            Margin="10" IsEnabled="False" />
+                    <Label Content="Adatok szerkesztése" />
+                    <DockPanel>
+                        <Button Name="RemoveMeres" Click="OnRemoveMeresClick" Content="Mérés törlése" Width="90"
+                                Margin="10" IsEnabled="False" />
+                        <Button Name="EditMeres" Click="OnEditMeresClick" Content="Mérés szerkeszt" Width="90"
+                                Margin="10" IsEnabled="False" />
+                    </DockPanel>
                 </StackPanel>
                 <Button Click="OnLoginButtonClick" HorizontalAlignment="Right" Margin="20"
-                        Content="Log in as admin" Height="30" VerticalAlignment="Top" />
+                        Content="Admin bejelentkezés" Height="30" VerticalAlignment="Top" />
             </DockPanel>
-            <Label Margin="20 0 0 0" Content="Logged in as Guest" />
+            <Label Margin="20 0 0 0" Content="Vendég felhasználó" />
         </StackPanel>
     </Grid>
 </UserControl>

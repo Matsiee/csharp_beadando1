@@ -2,6 +2,8 @@
 using System.Data.SQLite;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using CsharpBeadando1.DialogBoxes;
 using CsharpBeadando1.Windows;
 
 namespace CsharpBeadando1.UserControls;
@@ -35,7 +37,10 @@ public partial class UserWindow : UserControl
 
     private void OnNewMeresClick(object sender, RoutedEventArgs e)
     {
-        var window = new NewMeres();
+        string? nev = null;
+        string? szobaszam = null;
+        var window = new NewDiagnose();
+
         if (window.ShowDialog() == true)
         {
             Connection.Open();
@@ -80,6 +85,7 @@ public partial class UserWindow : UserControl
     {
         RemoveMeres.IsEnabled = false;
         FilterComboBox.IsEnabled = true;
+        EditMeres.IsEnabled = false;
         var exceptionsCommand = Connection.CreateCommand();
         exceptionsCommand.CommandText =
             "select nev as Név, szobaszam as Szobaszám, 'nem' as mertek from paciensek where id not in (select paciens_id from meresek)";
@@ -121,8 +127,32 @@ public partial class UserWindow : UserControl
 
     private void OnSelectPatientClick(object sender, RoutedEventArgs e)
     {
-        var window = new UserSelectPatient(Connection, this);
-        window.Show();
+        var window = new UserSelectPatient(Connection);
+        if (window.ShowDialog() == true)
+        {
+            Connection.Open();
+            var command = Connection.CreateCommand();
+            command.CommandText =
+                "select datum, idopont, pulzus, sys, dia, megjegyzes, meresek.id as meres_id, paciensek.id as paciens_id from paciensek join meresek on paciensek.id = meresek.paciens_id where nev=@nev and szobaszam=@szobaszam order by datum desc";
+            command.Parameters.AddWithValue("@nev", window.Nev.Text);
+            command.Parameters.AddWithValue("@szobaszam", window.Szobaszam.Text);
+            using (var adapter = new SQLiteDataAdapter(command))
+            {
+                var dataTable = MeresDataTable;
+                dataTable.Clear();
+                adapter.Fill(dataTable);
+                DataGrid.ItemsSource = dataTable.DefaultView;
+                // Hiding meres and patient id's
+                DataGrid.Columns[6].Visibility = Visibility.Hidden;
+                DataGrid.Columns[7].Visibility = Visibility.Hidden;
+            }
+
+            Connection.Close();
+        }
+
+        RemoveMeres.IsEnabled = true;
+        FilterComboBox.IsEnabled = false;
+        EditMeres.IsEnabled = true;
     }
 
     private void OnRemoveMeresClick(object sender, RoutedEventArgs e)
@@ -160,5 +190,90 @@ public partial class UserWindow : UserControl
         Connection.Open();
         DisplayPatients(PatientsDataTable);
         Connection.Close();
+    }
+
+    private void OnDataGridRowDoubleMouseClick(object sender, MouseButtonEventArgs e)
+    {
+        if (DataGrid.SelectedItem == null) return;
+        var row = DataGrid.SelectedItem as DataRowView;
+        if (!row.Row.Table.Columns.Contains("Név") || !row.Row.Table.Columns.Contains("Szobaszám")) return;
+        var nev = row["Név"].ToString();
+        var szobaszam = row["Szobaszám"].ToString();
+
+        Connection.Open();
+        var command = Connection.CreateCommand();
+        command.CommandText =
+            "select datum, idopont, pulzus, sys, dia, megjegyzes, meresek.id as meres_id, paciensek.id as paciens_id from paciensek join meresek on paciensek.id = meresek.paciens_id where nev=@nev and szobaszam=@szobaszam order by datum desc";
+        command.Parameters.AddWithValue("@nev", nev);
+        command.Parameters.AddWithValue("@szobaszam", szobaszam);
+        using (var adapter = new SQLiteDataAdapter(command))
+        {
+            var dataTable = MeresDataTable;
+            dataTable.Clear();
+            adapter.Fill(dataTable);
+            DataGrid.ItemsSource = dataTable.DefaultView;
+            // Hiding meres and patient id's
+            DataGrid.Columns[6].Visibility = Visibility.Hidden;
+            DataGrid.Columns[7].Visibility = Visibility.Hidden;
+        }
+
+        Connection.Close();
+        RemoveMeres.IsEnabled = true;
+        FilterComboBox.IsEnabled = false;
+        EditMeres.IsEnabled = true;
+    }
+
+    private void OnEditMeresClick(object sender, RoutedEventArgs e)
+    {
+        var window = new EditDiagnose();
+        if (DataGrid.SelectedItem == null) return;
+        var row = DataGrid.SelectedItem as DataRowView;
+        if (!row.Row.Table.Columns.Contains("datum") || !row.Row.Table.Columns.Contains("sys")) return;
+        var meresId = row["meres_id"].ToString();
+        var paciensId = row["paciens_id"].ToString();
+        var sys = row["sys"].ToString();
+        var dia = row["dia"].ToString();
+        var pulzus = row["pulzus"].ToString();
+        var megjegyzes = row["megjegyzes"].ToString();
+
+        window.Pulzus.Text = pulzus;
+        window.Sys.Text = sys;
+        window.Dia.Text = dia;
+        window.Megjegyzes.Text = megjegyzes;
+        if (window.ShowDialog() == true)
+        {
+            Connection.Open();
+            var command = Connection.CreateCommand();
+            command.CommandText =
+                "update meresek set pulzus = @pulzus, sys = @sys, dia = @dia, megjegyzes = @megjegyzes where id = @id";
+            command.Parameters.AddWithValue("@id", meresId);
+            command.Parameters.AddWithValue("@pulzus", window.Pulzus.Text);
+            command.Parameters.AddWithValue("@sys", window.Sys.Text);
+            command.Parameters.AddWithValue("@dia", window.Dia.Text);
+            command.Parameters.AddWithValue("@megjegyzes", window.Megjegyzes.Text);
+            command.ExecuteNonQuery();
+            Connection.Close();
+
+            Connection.Open();
+            var command2 = Connection.CreateCommand();
+            command2.CommandText =
+                "select datum, idopont, pulzus, sys, dia, megjegyzes, meresek.id as meres_id, paciensek.id as paciens_id from paciensek join meresek on paciensek.id = meresek.paciens_id where meresek.paciens_id = @id order by datum desc";
+            command2.Parameters.AddWithValue("@id", paciensId);
+            using (var adapter = new SQLiteDataAdapter(command2))
+            {
+                var dataTable = MeresDataTable;
+                dataTable.Clear();
+                adapter.Fill(dataTable);
+                DataGrid.ItemsSource = dataTable.DefaultView;
+                // Hiding meres and patient id's
+                DataGrid.Columns[6].Visibility = Visibility.Hidden;
+                DataGrid.Columns[7].Visibility = Visibility.Hidden;
+            }
+
+            Connection.Close();
+            RemoveMeres.IsEnabled = true;
+            FilterComboBox.IsEnabled = false;
+            EditMeres.IsEnabled = true;
+        }
     }
 }

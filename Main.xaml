@@ -5,6 +5,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:CsharpBeadando1"
         mc:Ignorable="d"
-        Title="Main" Height="450" Width="800">
+        Title="Vérnyomás napló" Height="450" Width="800">
         <ContentControl Name="ContentHolder"></ContentControl>
 </Window>

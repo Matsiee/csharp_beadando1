@@ -1,14 +1,10 @@
-﻿using System.ComponentModel;
-using System.Data;
-using System.Data.SQLite;
-using System.Windows;
-using CsharpBeadando1.UserControls;
+﻿using System.Windows;
 
 namespace CsharpBeadando1.Windows;
 
-public partial class NewMeres : Window
+public partial class NewDiagnose : Window
 {
-    public NewMeres()
+    public NewDiagnose()
     {
         InitializeComponent();
         Datum.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");

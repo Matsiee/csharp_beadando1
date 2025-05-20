@@ -1,10 +1,9 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Text.Json;
+using System.Windows;
 
 namespace CsharpBeadando1;
 
-/// <summary>
-///     Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class Login : Window
 {
     public Login()
@@ -14,7 +13,12 @@ public partial class Login : Window
 
     private void OnLoginButtonClick(object sender, RoutedEventArgs e)
     {
-        var pass = "pass";
+        var projectDirectory = Path.GetFullPath(@"..\..\..\");
+        string json = File.ReadAllText(projectDirectory + "config.json");
+
+        using JsonDocument doc = JsonDocument.Parse(json);
+        string pass = doc.RootElement.GetProperty("pass").GetString();
+
         if (TextBox.Password == pass)
         {
             DialogResult = true;

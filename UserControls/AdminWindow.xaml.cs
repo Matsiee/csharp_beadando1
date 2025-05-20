@@ -2,7 +2,8 @@
 using System.Data.SQLite;
 using System.Windows;
 using System.Windows.Controls;
-using CsharpBeadando1.Windows;
+using System.Windows.Input;
+using Microsoft.Win32;
 
 namespace CsharpBeadando1.UserControls;
 
@@ -71,7 +72,7 @@ public partial class AdminWindow : UserControl
 
     private void OnFindPatientButtonClick(object sender, RoutedEventArgs e)
     {
-        var window = new AdminSelectPatient();
+        var window = new AdminSelectPatient(Connection);
         if (window.ShowDialog() == true)
         {
             Connection.Open();
@@ -82,7 +83,8 @@ public partial class AdminWindow : UserControl
             command.Parameters.AddWithValue("@szobaszam", window.Szobaszam.Text);
             using (var reader = command.ExecuteReader())
             {
-                paciensId = reader.GetString(0);
+                reader.Read();
+                paciensId = reader.GetValue(0).ToString();
             }
 
             DisplayMeresek(MeresekDataTable, paciensId);
@@ -91,6 +93,8 @@ public partial class AdminWindow : UserControl
             RemoveMeres.IsEnabled = true;
             RemovePatient.IsEnabled = false;
             FilterComboBox.IsEnabled = true;
+            RemoveNurse.IsEnabled = false;
+            Export.IsEnabled = false;
         }
     }
 
@@ -110,7 +114,7 @@ public partial class AdminWindow : UserControl
         Connection.Close();
     }
 
-    public void DisplayMeresek(DataTable dataTable, string paciensId)
+    private void DisplayMeresek(DataTable dataTable, string paciensId)
     {
         var selectCommand = Connection.CreateCommand();
         selectCommand.CommandText =
@@ -132,6 +136,8 @@ public partial class AdminWindow : UserControl
         RemoveMeres.IsEnabled = false;
         RemovePatient.IsEnabled = true;
         FilterComboBox.IsEnabled = false;
+        RemoveNurse.IsEnabled = false;
+        Export.IsEnabled = false;
 
         Connection.Open();
         DisplayPatients(PatientsDataTable);
@@ -191,12 +197,15 @@ public partial class AdminWindow : UserControl
         {
             case "Reggeli mérések":
                 MeresekDataTable.DefaultView.RowFilter = "idopont < '12:00'";
+                Export.IsEnabled = true;
                 break;
             case "Esti mérések":
                 MeresekDataTable.DefaultView.RowFilter = "idopont > '12:00'";
+                Export.IsEnabled = true;
                 break;
             case "Összes":
                 MeresekDataTable.DefaultView.RowFilter = string.Empty;
+                Export.IsEnabled = true;
                 break;
         }
     }
@@ -206,9 +215,82 @@ public partial class AdminWindow : UserControl
         RemoveMeres.IsEnabled = false;
         RemovePatient.IsEnabled = false;
         FilterComboBox.IsEnabled = false;
+        RemoveNurse.IsEnabled = true;
+        Export.IsEnabled = false;
 
         Connection.Open();
         DisplayNurses(NursesDataTable);
         Connection.Close();
+    }
+
+    private void OnDataGridRowDoubleMouseClick(object sender, MouseButtonEventArgs e)
+    {
+        if (DataGrid.SelectedItem == null) return;
+        var row = DataGrid.SelectedItem as DataRowView;
+        if (!row.Row.Table.Columns.Contains("nev") || !row.Row.Table.Columns.Contains("szobaszam")) return;
+        var nev = row["nev"].ToString();
+        var szobaszam = row["szobaszam"].ToString();
+
+        Connection.Open();
+        string paciensId;
+        var command = Connection.CreateCommand();
+        command.CommandText = "select id from paciensek where nev = @nev and szobaszam = @szobaszam";
+        command.Parameters.AddWithValue("@nev", nev);
+        command.Parameters.AddWithValue("@szobaszam", szobaszam);
+        using (var reader = command.ExecuteReader())
+        {
+            reader.Read();
+            paciensId = reader.GetValue(0).ToString();
+        }
+
+        DisplayMeresek(MeresekDataTable, paciensId);
+        Connection.Close();
+        //default values
+        RemoveMeres.IsEnabled = true;
+        RemovePatient.IsEnabled = false;
+        FilterComboBox.IsEnabled = true;
+        RemoveNurse.IsEnabled = false;
+        Export.IsEnabled = false;
+    }
+
+    private void OnRemoveNurseClick(object sender, RoutedEventArgs e)
+    {
+        if (DataGrid.SelectedItem == null) return;
+        var item = DataGrid.SelectedCells[0].Item as DataRowView;
+        if (item == null) return;
+        var row = item.Row;
+        var id = row["id"];
+        Connection.Open();
+        var command = Connection.CreateCommand();
+        command.CommandText =
+            "delete from apolok where id = @id";
+        command.Parameters.AddWithValue("@id", id);
+        command.ExecuteNonQuery();
+        DisplayNurses(NursesDataTable);
+        Connection.Close();
+    }
+
+    private void OnExportClick(object sender, RoutedEventArgs e)
+    {
+        var dialog = new SaveFileDialog
+        {
+            FileName = "paciens_adatok",
+            Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*",
+            DefaultExt = ".xml",
+            Title = "Páciens adatok exportálása"
+        };
+
+        bool? result = dialog.ShowDialog();
+        if (result == true)
+        {
+            string filePath = dialog.FileName;
+
+            if (DataGrid.ItemsSource is DataView dataView)
+            {
+                var dataTable = dataView.ToTable();
+                dataTable.TableName = "data";
+                dataTable.WriteXml(filePath, XmlWriteMode.WriteSchema);
+            }
+        }
     }
 }

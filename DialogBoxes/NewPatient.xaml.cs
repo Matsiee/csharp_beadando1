@@ -1,7 +1,7 @@
 ﻿using System.Data.SQLite;
 using System.Windows;
 
-namespace CsharpBeadando1.Windows;
+namespace CsharpBeadando1;
 
 public partial class NewPatient : Window
 {
